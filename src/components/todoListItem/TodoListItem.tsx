@@ -1,15 +1,14 @@
-import { useContext } from 'react';
-import { Context } from '../app'
+import {ITodoData, useAppContext} from "../../api/contextProvider";
 import './todoListItem.css';
 
-export default function TodoListItem(
+export const TodoListItem = (
   {
     id,
     label,
     done,
     important,
-  }) {
-  const { toDelete, onToggleDone, onToggleImportant } = useContext(Context);
+  }: ITodoData) => {
+  const { toDelete, onToggleDone, onToggleImportant } = useAppContext();
   let className = 'todo-list-item';
   if (done) {
     className += ' done';

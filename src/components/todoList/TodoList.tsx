@@ -1,10 +1,9 @@
-import React, { useContext } from 'react';
-import TodoListItem from "../todoListItem";
-import { Context } from '../app'
+import { useAppContext } from '../../api/contextProvider';
+import { TodoListItem } from "../todoListItem";
 
-export default function TodoList() {
-  const { todos } = useContext(Context);
-  const elements = todos.map((task) => {
+export const TodoList = () => {
+  const { todos } = useAppContext();
+  const elements = todos && todos.map((task) => {
     return (
       <li key={ task.id } className="list-group-item">
         <TodoListItem { ...task }

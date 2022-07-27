@@ -1,14 +1,13 @@
-import React, { useState, useContext } from 'react';
+import React, {ChangeEvent, useState} from 'react';
+import {useAppContext} from "../../api/contextProvider";
+
 import './addTask.css';
-import { Context } from '../app'
 
-const AddTask = () => {
+export const AddTask = () => {
   const [value, setValue] = useState('');
-  const { addTask } = useContext(Context);
-  console.log()
-  // const [tasks, setTask] = useState([]);
+  const { addTask } = useAppContext();
 
-  const changeHandle = (e) => {
+  const changeHandle = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setValue(e.target.value);
   }
@@ -27,12 +26,9 @@ const AddTask = () => {
         onClick={() => {
           addTask(value);
           setValue('');
-          // setTask((prev) => [...prev, value]);
         }}
       >Add task
       </button>
     </div>
   );
 }
-
-export default AddTask;
