@@ -8,14 +8,14 @@ import AddTask from "../addTask/addTask";
 
 import './app.css';
 
-interface IInitContext {
-    addTask: () => void,
-    todos: ITodoData[],
-    toDelete: () => void,
-    onToggleDone: () => void,
-    onToggleImportant: () => void,
-
-}
+// interface IInitContext {
+//     addTask: () => void,
+//     todos: ITodoData[],
+//     toDelete: () => void,
+//     onToggleDone: () => void,
+//     onToggleImportant: () => void,
+//
+// }
 
 interface ITodoData {
     label: string,
@@ -30,6 +30,11 @@ enum FiltersNames {
     DONE = "done"
 }
 
+enum TodoStatus {
+    IMPORTANT = "important",
+    DONE = "done"
+}
+
 const Context = createContext({});
 
 const addItem = (label: string): ITodoData => {
@@ -39,6 +44,12 @@ const addItem = (label: string): ITodoData => {
         important: false,
         done: false,
     };
+}
+
+interface IAppState {
+    itemData: ITodoData[],
+    search: string,
+    filter: FiltersNames
 }
 
 const init = {
@@ -82,25 +93,24 @@ const App = () => {
             const newArray = [...copyOfData, data];
             return ({...prev, todoData: newArray});
         });
-    }
+    };
 
-    const onToggleItem = (id: string, arr: ITodoData[], item: any) => {
+    const onToggleItem = (id: string, arr: ITodoData[], item: TodoStatus) => {
         const copyOfData = arr.slice();
         const idx = copyOfData.findIndex((el) => el.id === id);
-        // @ts-ignore
         copyOfData[idx] = {...copyOfData[idx], [item]: !copyOfData[idx][item]}
         return copyOfData;
     }
 
     const onToggleImportant = (id: string) => {
         setTask((prev) => {
-            return {...prev, todoData: onToggleItem(id, todoData, 'important')};
+            return {...prev, todoData: onToggleItem(id, todoData, TodoStatus.IMPORTANT)};
         });
     }
 
     const onToggleDone = (id: string) => {
         setTask((prev) => {
-            return {...prev, todoData: onToggleItem(id, todoData, 'done')};
+            return {...prev, todoData: onToggleItem(id, todoData, TodoStatus.DONE)};
         });
     }
 
@@ -143,7 +153,6 @@ const App = () => {
                 toDelete,
                 onToggleDone,
                 onToggleImportant,
-
             }
         }>
             <div className="container">
