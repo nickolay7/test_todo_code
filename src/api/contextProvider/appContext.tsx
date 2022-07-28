@@ -1,5 +1,5 @@
-import {createContext, useState} from "react";
-import {nanoid} from "nanoid";
+import { createContext, useState } from "react";
+import { nanoid } from "nanoid";
 
 export interface ITodoData {
     label: string,

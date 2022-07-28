@@ -2,7 +2,7 @@ import AppHeader from '../appHeader';
 import { SearchPanel } from '../searchPanel';
 import { TodoList } from '../todoList';
 import { StatusFilter } from '../statusFilter';
-import { AddTask } from "../addTask/addTask";
+import { AddTask } from "../addTask";
 import {ITodoData, useAppContext} from "../../api/contextProvider";
 
 import './app.css';
@@ -12,11 +12,11 @@ export const App = () => {
     const { todoData } = useAppContext();
 
     const countDone = () => {
-        return todoData.filter((i: ITodoData) => i.done).length;
+        return todoData?.filter((i: ITodoData) => i.done).length;
     }
 
     const countToDo = () => {
-        return todoData.length - countDone();
+        return todoData?.length - countDone();
     }
 
     return (
@@ -28,4 +28,4 @@ export const App = () => {
             <AddTask/>
         </div>
     );
-}
+};
